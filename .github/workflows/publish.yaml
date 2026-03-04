@@ -18,10 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-tags: true
 
       - name: Prepare pages directory
         run: |
-          VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION=$(echo "${{ github.event.release.tag_name }}" | sed 's/^v//')
+          else
+            VERSION=$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "latest")
+          fi
           mkdir -p _site/v${VERSION}
           cp json-schema/schema.json _site/v${VERSION}/schema.json
           echo '<html><body><h1>OPR STAC Extension</h1><p>See <a href="https://github.com/englacial/opr-stac-extension">the repository</a> for documentation.</p></body></html>' > _site/index.html
