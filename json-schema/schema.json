@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://englacial.github.io/opr-stac-extension/v1.0.0/schema.json",
+  "title": "OPR Extension",
+  "description": "STAC Extension for Open Polar Radar (OPR) metadata, including morton geometry indices from the mortie library.",
+  "type": "object",
+  "required": ["stac_extensions"],
+  "properties": {
+    "stac_extensions": {
+      "type": "array",
+      "contains": {
+        "const": "https://englacial.github.io/opr-stac-extension/v1.0.0/schema.json"
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$comment": "Item-level validation",
+      "type": "object",
+      "required": ["type", "properties"],
+      "properties": {
+        "type": { "const": "Feature" },
+        "properties": {
+          "type": "object",
+          "required": ["opr:provider", "opr:mbox"],
+          "properties": {
+            "opr:provider": {
+              "type": "string",
+              "enum": ["awi", "cresis", "dtu", "utig"],
+              "description": "Data provider identifier."
+            },
+            "opr:mbox": {
+              "type": "array",
+              "description": "Morton bounding box: 4 prefix-cell characteristic integers from the mortie library.",
+              "items": { "type": "integer" },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "opr:frame": {
+              "type": "integer",
+              "description": "Frame number within the segment."
+            },
+            "opr:date": {
+              "type": "string",
+              "pattern": "^[0-9]{8}$",
+              "description": "Acquisition date in YYYYMMDD format."
+            },
+            "opr:bandwidth": {
+              "type": "integer",
+              "description": "Radar chirp bandwidth in Hz."
+            },
+            "opr:frequency": {
+              "type": "integer",
+              "description": "Radar center frequency in Hz."
+            },
+            "opr:segment": {
+              "type": "integer",
+              "description": "Segment number within the flight day."
+            },
+            "opr:hemisphere": {
+              "type": "string",
+              "enum": ["north", "south"],
+              "description": "Hemisphere of the data acquisition."
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Collection-level validation",
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "Collection" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "properties": { "type": "object" } }
+          },
+          "then": {
+            "properties": {
+              "properties": {
+                "type": "object",
+                "required": ["opr:provider", "opr:mpolygon"],
+                "properties": {
+                  "opr:provider": {
+                    "type": "string",
+                    "enum": ["awi", "cresis", "dtu", "utig"],
+                    "description": "Data provider identifier."
+                  },
+                  "opr:mpolygon": {
+                    "type": "array",
+                    "description": "Morton polygon: 12 prefix-cell characteristic integers from the mortie library.",
+                    "items": { "type": "integer" },
+                    "minItems": 12,
+                    "maxItems": 12
+                  },
+                  "opr:hemisphere": {
+                    "type": "string",
+                    "enum": ["north", "south"],
+                    "description": "Hemisphere of the data acquisition."
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

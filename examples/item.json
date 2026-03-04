@@ -1,0 +1,32 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://englacial.github.io/opr-stac-extension/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json"
+  ],
+  "id": "Data_20161014_03_001",
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [[-69.86, -71.35], [-69.85, -71.36], [-69.84, -71.37]]
+  },
+  "bbox": [-69.86, -71.37, -69.84, -71.35],
+  "properties": {
+    "datetime": "2016-10-14T16:12:44Z",
+    "opr:provider": "cresis",
+    "opr:mbox": [408502312, 408502313, 408502314, 408502315],
+    "opr:date": "20161014",
+    "opr:segment": 3,
+    "opr:frame": 1,
+    "opr:frequency": 190000000,
+    "opr:bandwidth": 50000000,
+    "opr:hemisphere": "south"
+  },
+  "links": [],
+  "assets": {
+    "data": {
+      "href": "https://data.cresis.ku.edu/data/rds/2016_Antarctica_DC8/CSARP_standard/20161014_03/Data_20161014_03_001.mat",
+      "type": "application/x-hdf5"
+    }
+  }
+}

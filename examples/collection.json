@@ -1,0 +1,24 @@
+{
+  "type": "Collection",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://englacial.github.io/opr-stac-extension/v1.0.0/schema.json"
+  ],
+  "id": "2016_Antarctica_DC8",
+  "description": "2016 DC8 flights over Antarctica",
+  "license": "various",
+  "extent": {
+    "spatial": {
+      "bbox": [[-180, -90, 180, -60]]
+    },
+    "temporal": {
+      "interval": [["2016-10-01T00:00:00Z", "2016-11-30T00:00:00Z"]]
+    }
+  },
+  "properties": {
+    "opr:provider": "cresis",
+    "opr:mpolygon": [408502312, 408502313, 408502314, 408502315, 408502316, 408502317, 408502318, 408502319, 408502320, 408502321, 408502322, 408502323],
+    "opr:hemisphere": "south"
+  },
+  "links": []
+}
